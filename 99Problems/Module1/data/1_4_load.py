@@ -14,14 +14,13 @@ from pprint import pprint
 
 
 
-# --- Constants ---
+# 
 MAX_DATE = "2024-01-31"
 MIN_DATE = "2024-01-01"
 
 
-# --- Setup ---
+# 
 os.makedirs("artifacts", exist_ok=True)
-print("Created artifacts directory")
 
 
 # --- Suppress Warnings ---
@@ -29,7 +28,7 @@ warnings.filterwarnings('ignore')
 pd.set_option('display.float_format', lambda x: "%.3f" % x)
 
 
-# --- Utility Functions ---
+# 
 def describe_numeric_col(x):
     """
     Generate descriptive statistics for a numeric pandas Series.
@@ -63,14 +62,14 @@ def impute_missing_values(x, method="mean"):
         return x.fillna(x.mode()[0])
 
 
-# --- Data Loading ---
+# 
 print("Loading training data")
 data = pd.read_csv("./artifacts/raw_data.csv")
 print("Total rows:", len(data))
 pprint(data.head(5))
 
 
-# --- Date Processing ---
+# 
 def parse_date(date_str):
     """Convert a date string to a date object."""
     return pd.to_datetime(date_str).date()
@@ -80,12 +79,12 @@ max_date = parse_date(MAX_DATE)
 min_date = parse_date(MIN_DATE)
 
 
-# --- Filter Data by Date Range ---
+# 
 data["date_part"] = pd.to_datetime(data["date_part"]).dt.date
 data = data[(data["date_part"] >= min_date) & (data["date_part"] <= max_date)]
 
 
-# --- Update Date Limits ---
+# 
 min_date = data["date_part"].min()
 max_date = data["date_part"].max()
 date_limits = {"min_date": str(min_date), "max_date": str(max_date)}
@@ -93,4 +92,3 @@ with open("./artifacts/date_limits.json", "w") as f:
     json.dump(date_limits, f)
 
 
-print("Data filtered and date limits saved.")
