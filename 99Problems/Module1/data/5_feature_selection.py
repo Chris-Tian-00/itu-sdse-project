@@ -1,4 +1,3 @@
-
 # Not all columns are relevant for modelling
 data = data.drop(
     [
