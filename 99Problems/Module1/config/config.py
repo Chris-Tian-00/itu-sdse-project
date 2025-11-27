@@ -1,3 +1,44 @@
+# Load
+
+MAX_DATE = "2024-01-31"
+MIN_DATE = "2024-01-01"
+
+artifacts_dir = "" #artifacts
+data_path = "" #./artifacts/raw_data.csv
+date_limits_path = ""#./artifacts/date_limits.json
+
+data_load_path = f"./{artifacts_dir}/01_data_load.csv"
+
+# Feature Selection
+
+data_feat_select_path = f"./{artifacts_dir}/02_data_feat_select.csv"
+
+# Clean Seperate
+
+outlier_summary_path = './artifacts/outlier_summary.csv'
+cat_missing_impute_path = "./artifacts/cat_missing_impute.csv"
+
+data_clean_seperate_path = f"./{artifacts_dir}/03_data_clean_seperate.csv"
+cont_vars_clean_seperate_path = f"./{artifacts_dir}/01_cont_vars_clean_seperate.csv"
+cat_vars_clean_seperate_path = f"./{artifacts_dir}/01_cat_vars_clean_seperate.csv"
+
+# Combine Bin Save
+
+scaler_path = "./artifacts/scaler.pkl"
+
+column_drift_path = './artifacts/columns_drift.json'
+training_data_path = './artifacts/training_data.csv'
+
+values_list = ['li', 'organic','signup','fb']
+
+mapping = {'li' : 'socials', 
+           'fb' : 'socials', 
+           'organic': 'group1', 
+           'signup': 'group1'
+           }
+
+data_gold_path = ""#./artifacts/train_data_gold.csv
+
 # Train
 
 import datetime
@@ -5,10 +46,8 @@ import datetime
 from scipy.stats import uniform, randint
 
 current_date = datetime.datetime.now().strftime("%Y_%B_%d")
-data_gold_path = ""#./artifacts/train_data_gold.csv
 data_version = "00000"
 experiment_name = current_date
-artifacts_dir = "" #artifacts
 mlruns_dir = "" #mlruns
 ml_runs_trash_dir = "" #mlruns/.trash
 

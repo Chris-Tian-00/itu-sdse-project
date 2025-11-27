@@ -10,9 +10,19 @@ from pprint import pprint
 import matplotlib.pyplot as plt
 import joblib
 import json
+import shutil
 
 import config.config as cfg
 from src.utils import create_dummy_cols
+
+
+
+os.makedirs(cfg.artifacts_dir, exist_ok=True)
+os.makedirs(cfg.mlruns_dir, exist_ok=True)
+os.makedirs(cfg.ml_runs_trash_dir, exist_ok=True)
+
+
+mlflow.set_experiment(cfg.experiment_name)
 
 
 #
@@ -103,7 +113,6 @@ experiment_id = mlflow.get_experiment_by_name(cfg.experiment_name).experiment_id
 
 with mlflow.start_run(experiment_id=experiment_id) as run:
     model = LogisticRegression()
-    lr_model_path = "./artifacts/lead_model_lr.pkl"
 
     model_grid = RandomizedSearchCV(model, param_distributions= cfg.params_lr, verbose=3, n_iter=10, cv=3)
     model_grid.fit(X_train, y_train)
@@ -120,7 +129,7 @@ with mlflow.start_run(experiment_id=experiment_id) as run:
     mlflow.log_param("data_version", cfg.data_version)
     
     # store model for model interpretability
-    joblib.dump(value=model, filename=lr_model_path)
+    joblib.dump(value=model, filename=cfg.lr_model_path)
         
     # Custom python model for predicting probability 
     mlflow.pyfunc.log_model('model', python_model=lr_wrapper(model))
@@ -148,7 +157,7 @@ print(pd.crosstab(y_train, y_pred_train, rownames=['Actual'], colnames=['Predict
 print("Classification report\n")
 print(classification_report(y_train, y_pred_train),'\n')
 
-model_results[lr_model_path] = model_classification_report
+model_results[cfg.lr_model_path] = model_classification_report
 print(model_classification_report["weighted avg"]["f1-score"])
 
 #

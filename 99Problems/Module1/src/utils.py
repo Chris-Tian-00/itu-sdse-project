@@ -1,17 +1,57 @@
+# General
+
+def save_to_csv(df, path):
+    import pandas as pd
+    df.to_csv(path, index=False)
+
+def load_csv_to_df(path):
+    import pandas as pd
+    return pd.read_csv(path)
+
+
+# Load
+
+def describe_numeric_col(x):
+    import pandas as pd
+    """
+    Generate descriptive statistics for a numeric pandas Series.
+    
+    Parameters:
+        x (pd.Series): Column to describe.
+        
+    Returns:
+        pd.Series: Series with count, missing, mean, min, max.
+    """
+    return pd.Series(
+        [x.count(), x.isnull().sum(), x.mean(), x.min(), x.max()],
+        index=["Count", "Missing", "Mean", "Min", "Max"]
+    )
+
+
+def impute_missing_values(x, method="mean"):
+    """
+    Impute missing values in a pandas Series.
+    
+    Parameters:
+        x (pd.Series): Column to impute.
+        method (str): Imputation method ("mean" or "median" for numeric, mode for categorical).
+        
+    Returns:
+        pd.Series: Series with missing values imputed.
+    """
+    if x.dtype in ["float64", "int64"]:
+        return x.fillna(x.mean()) if method == "mean" else x.fillna(x.median())
+    else:
+        return x.fillna(x.mode()[0])
+    
+# Feature Selection
+
+# Clean Seperate
+
+# Combine Bin Save
+
+
 # Train
-
-def make_ml_directories():
-    import os
-    import shutil
-    import config.config as cfg
-    os.makedirs(cfg.artifacts_dir, exist_ok=True)
-    os.makedirs(cfg.mlruns_dir, exist_ok=True)
-    os.makedirs(cfg.ml_runs_trash_dir, exist_ok=True)
-
-def ml_experiment_set():
-    import mlflow
-    import config.config as cfg
-    mlflow.set_experiment(cfg.experiment_name)
 
 def create_dummy_cols(df, col):
     import pandas as pd
