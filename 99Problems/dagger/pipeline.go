@@ -29,7 +29,7 @@ func RunPipeline(ctx context.Context) error {
 		WithMountedDirectory("/app", client.Host().Directory("99Problems/Module1")).
 		WithWorkdir("/app").
 		WithExec([]string{"pip", "install", "--upgrade", "pip"}).
-		WithExec([]string{"pip", "install", "-r", "requirements.txt"}) // we need to make one
+		WithExec([]string{"pip", "install", "-r", "requirements.txt"})
 
 	// run all scripts in order (from src folder)
 	scripts := []string{
