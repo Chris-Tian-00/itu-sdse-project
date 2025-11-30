@@ -26,7 +26,7 @@ func RunPipeline(ctx context.Context) error {
 	// use Python 3.10 slim container
 	container := client.Container().
 		From("python:3.10-slim").
-		WithMountedDirectory("/app", client.Host().Directory("99Problems/Module1")).
+		WithMountedDirectory("/app", client.Host().Directory("../Module1")).
 		WithWorkdir("/app").
 		WithExec([]string{"pip", "install", "--upgrade", "pip"}).
 		WithExec([]string{"pip", "install", "-r", "requirements.txt"})
