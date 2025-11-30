@@ -22,7 +22,7 @@ from src.utils import save_to_csv
 
 
 # 
-os.makedirs(cfg.artifacts_dir, exist_ok=True)
+os.makedirs(cfg.artifacts_dir, exist_ok=True) #if folder already exists, this does nothing
 
 
 # --- Suppress Warnings ---
