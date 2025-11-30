@@ -6,10 +6,12 @@ mkdocs
 notebook
 numpy
 pandas
-pip
-python-dotenv
-ruff
 scikit-learn
 tqdm
 typer
+python-dotenv
+joblib
+xgboost
+mlflow
+pip
 -e .
