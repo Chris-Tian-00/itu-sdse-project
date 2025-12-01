@@ -3,8 +3,8 @@
 MAX_DATE = "2024-01-31"
 MIN_DATE = "2024-01-01"
 
-artifacts_dir = "" #artifacts
-data_path = "" #./artifacts/raw_data.csv
+artifacts_dir = "./artifacts"
+data_path = "./artifacts/raw_data.csv.dvc"
 date_limits_path = ""#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
