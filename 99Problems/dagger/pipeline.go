@@ -28,6 +28,8 @@ func RunPipeline(ctx context.Context) error {
 		From("python:3.10-slim").
 		WithMountedDirectory("/app", client.Host().Directory("../")).
 		WithWorkdir("/app/Module1").
+		// set PYTHONPATH so Python can find modules like config
+    	WithEnvVariable("PYTHONPATH", "/app").
 		WithExec([]string{"pip", "install", "--upgrade", "pip"}).
 		WithExec([]string{"pip", "install", "-r", "/app/requirements.txt"})
 
