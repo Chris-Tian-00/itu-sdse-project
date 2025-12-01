@@ -10,31 +10,47 @@ import (
 func main() {
 	ctx := context.Background()
 
-	if err := RunPipeline(ctx); err != nil {
-		log.Fatalf("Pipeline failed: %v", err)
-	}
-}
-
-// RunPipeline runs all Python stages in order
-func RunPipeline(ctx context.Context) error {
+	// Connect to Dagger engine
 	client, err := dagger.Connect(ctx, dagger.WithLogOutput(log.Writer()))
 	if err != nil {
-		return err
+		log.Fatalf("Failed to connect: %v", err)
 	}
 	defer client.Close()
 
-	// use Python 3.10 slim container
+	// Run pipeline
+	if err := runPipeline(ctx, client); err != nil {
+		log.Fatalf("Pipeline failed: %v", err)
+	}
+
+	log.Println("Pipeline completed successfully!")
+}
+
+func runPipeline(ctx context.Context, client *dagger.Client) error {
+
+	//  1. Base Python container with repo mounted  
 	container := client.Container().
 		From("python:3.10-slim").
-		WithMountedDirectory("/app", client.Host().Directory("../")).
-		WithWorkdir("/app/Module1").
-		// set PYTHONPATH so Python can find modules like config
-    	WithEnvVariable("PYTHONPATH", "/app").
-		WithExec([]string{"pip", "install", "--upgrade", "pip"}).
-		WithExec([]string{"pip", "install", "-r", "/app/requirements.txt"})
+		WithMountedDirectory("/app", client.Host().Directory("../")). // mount repo root
+		WithWorkdir("/app/Module1").                                  // scripts live here
+		WithEnvVariable("PYTHONPATH", "/app")                         // allow "import config"
 
-	// run all scripts in order (from src folder)
-	scripts := []string{
+	//  2. Upgrade pip  
+	container = container.WithExec([]string{
+		"pip", "install", "--upgrade", "pip",
+	})
+
+	//  3. Install project as editable package  
+	container = container.WithExec([]string{
+		"pip", "install", "-e", "/app",
+	})
+
+	//  4. Install dependencies from repo root  
+	container = container.WithExec([]string{
+		"pip", "install", "-r", "/app/requirements.txt",
+	})
+
+	//  5. Python scripts to execute in order  
+	steps := []string{
 		"src/01_load.py",
 		"src/02_feature_selection.py",
 		"src/03_clean_separate.py",
@@ -44,18 +60,19 @@ func RunPipeline(ctx context.Context) error {
 		"src/07_deploy.py",
 	}
 
-
-	for _, script := range scripts {
+	//  6. Execute each script  
+	for _, script := range steps {
 		log.Println("Running", script)
 		container = container.WithExec([]string{"python", script})
 	}
 
-	// export the artifacts folder with final model(s)
-	_, err = container.Directory("artifacts").Export(ctx, "model")
+	//  7. Export final model artifacts  
+	_, err := container.
+		Directory("/app/Module1/artifacts").
+		Export(ctx, "models") // exports locally to 99Problems/models/
 	if err != nil {
 		return err
 	}
 
-	log.Println("Pipeline completed")
 	return nil
 }
