@@ -32,7 +32,8 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		From("python:3.10-slim").
 		WithMountedDirectory("/app", client.Host().Directory("../")). // mount repo root
 		WithWorkdir("/app/Module1").                                  // scripts live here
-		WithEnvVariable("PYTHONPATH", "/app")                         // allow "import config"
+		WithEnvVariable("PYTHONPATH", "/app:/app/Module1")			  // allow "import config"
+                         
 
 	//  2. Upgrade pip  
 	container = container.WithExec([]string{
