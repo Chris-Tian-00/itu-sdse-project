@@ -3,8 +3,8 @@ import joblib
 import pandas as pd
 import json
 
-import config.config as cfg
-from src.utils import load_csv_to_df, save_to_csv
+from Module1.config import config as cfg
+from Module1.src.utils import load_csv_to_df, save_to_csv
 
 
 data = load_csv_to_df(cfg.data_clean_seperate_path)

@@ -4,8 +4,8 @@ MAX_DATE = "2024-01-31"
 MIN_DATE = "2024-01-01"
 
 artifacts_dir = "./artifacts"
-data_path = "./artifacts/raw_data.csv.dvc"
-date_limits_path = ""#./artifacts/date_limits.json
+data_path = "./artifacts/raw_data.csv"
+date_limits_path = "./artifacts/date_limits.json"#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
 
@@ -37,7 +37,7 @@ mapping = {'li' : 'socials',
            'signup': 'group1'
            }
 
-data_gold_path = ""#./artifacts/train_data_gold.csv
+data_gold_path = "./artifacts/train_data_gold.csv"
 
 # Train
 
@@ -48,8 +48,8 @@ from scipy.stats import uniform, randint
 current_date = datetime.datetime.now().strftime("%Y_%B_%d")
 data_version = "00000"
 experiment_name = current_date
-mlruns_dir = "" #mlruns
-ml_runs_trash_dir = "" #mlruns/.trash
+mlruns_dir = "./artifacts/mlruns" 
+ml_runs_trash_dir = ""
 
 cat_cols = ["customer_group", "onboarding", "bin_source", "source"]
 

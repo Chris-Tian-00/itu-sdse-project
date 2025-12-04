@@ -14,5 +14,5 @@ joblib
 xgboost
 mlflow
 pip
--e /app
+
 

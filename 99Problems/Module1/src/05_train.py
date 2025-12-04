@@ -12,8 +12,8 @@ import joblib
 import json
 import shutil
 
-import config.config as cfg
-from src.utils import create_dummy_cols
+from Module1.config import config as cfg
+from Module1.src.utils import create_dummy_cols
 
 
 

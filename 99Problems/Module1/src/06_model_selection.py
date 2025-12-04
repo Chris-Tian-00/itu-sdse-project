@@ -3,8 +3,8 @@ import json
 import pandas as pd 
 from mlflow.tracking import MlflowClient
 
-import config.config as cfg
-from src.utils import wait_until_ready
+from Module1.config import config as cfg
+from Module1.src.utils import wait_until_ready
 
 #
 experiment_ids = [mlflow.get_experiment_by_name(cfg.experiment_name).experiment_id]

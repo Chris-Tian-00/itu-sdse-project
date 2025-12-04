@@ -1,8 +1,8 @@
 from mlflow.tracking import MlflowClient
 import time
 
-import config.config as cfg
-from src.utils import wait_for_deployment
+from Module1.config import config as cfg
+from Module1.src.utils import wait_for_deployment
 
 client = MlflowClient()
 

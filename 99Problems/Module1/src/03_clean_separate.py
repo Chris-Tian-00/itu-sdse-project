@@ -1,10 +1,10 @@
 #Cleaning
 import numpy as np
 import pandas as pd
-import pprint
+from pprint import pprint
 
-import config.config as cfg
-from src.utils import load_csv_to_df, save_to_csv, describe_numeric_col, impute_missing_values
+from Module1.config import config as cfg
+from Module1.src.utils import load_csv_to_df, save_to_csv, describe_numeric_col, impute_missing_values
 
 data = load_csv_to_df(cfg.data_feat_select_path)
 
