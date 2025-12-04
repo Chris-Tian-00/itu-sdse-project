@@ -3,9 +3,9 @@
 MAX_DATE = "2024-01-31"
 MIN_DATE = "2024-01-01"
 
-artifacts_dir = "./artifacts"
-data_path = "Module1/artifacts/raw_data.csv"
-date_limits_path = "./artifacts/date_limits.json"#./artifacts/date_limits.json
+artifacts_dir = "Module1/artifacts"
+data_path = f"./{artifacts_dir}/raw_data.csv"
+date_limits_path = f"./{artifacts_dir}/date_limits.json"#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
 
@@ -15,8 +15,8 @@ data_feat_select_path = f"./{artifacts_dir}/02_data_feat_select.csv"
 
 # Clean Seperate
 
-outlier_summary_path = './artifacts/outlier_summary.csv'
-cat_missing_impute_path = "./artifacts/cat_missing_impute.csv"
+outlier_summary_path = f'./{artifacts_dir}/outlier_summary.csv'
+cat_missing_impute_path = f"./{artifacts_dir}/cat_missing_impute.csv"
 
 data_clean_seperate_path = f"./{artifacts_dir}/03_data_clean_seperate.csv"
 cont_vars_clean_seperate_path = f"./{artifacts_dir}/01_cont_vars_clean_seperate.csv"
@@ -24,10 +24,10 @@ cat_vars_clean_seperate_path = f"./{artifacts_dir}/01_cat_vars_clean_seperate.cs
 
 # Combine Bin Save
 
-scaler_path = "./artifacts/scaler.pkl"
+scaler_path = f"./{artifacts_dir}/scaler.pkl"
 
-column_drift_path = './artifacts/columns_drift.json'
-training_data_path = './artifacts/training_data.csv'
+column_drift_path = f'./{artifacts_dir}/columns_drift.json'
+training_data_path = f'./{artifacts_dir}/training_data.csv'
 
 values_list = ['li', 'organic','signup','fb']
 
@@ -37,7 +37,7 @@ mapping = {'li' : 'socials',
            'signup': 'group1'
            }
 
-data_gold_path = "./artifacts/train_data_gold.csv"
+data_gold_path = f"./{artifacts_dir}/train_data_gold.csv"
 
 # Train
 
@@ -48,8 +48,8 @@ from scipy.stats import uniform, randint
 current_date = datetime.datetime.now().strftime("%Y_%B_%d")
 data_version = "00000"
 experiment_name = current_date
-mlruns_dir = "./artifacts/mlruns" 
-ml_runs_trash_dir = "./artifacts/mlruns_trash"
+mlruns_dir = f"./{artifacts_dir}/mlruns" 
+ml_runs_trash_dir = f"./{artifacts_dir}/mlruns_trash"
 
 cat_cols = ["customer_group", "onboarding", "bin_source", "source"]
 
@@ -61,9 +61,9 @@ params_xgbrf = {
     "objective": ["reg:squarederror", "binary:logistic", "reg:logistic"],
     "eval_metric": ["aucpr", "error"]
 }
-xgboost_model_path = "" #./artifacts/lead_model_xgboost.json
+xgboost_model_path = f"./{artifacts_dir}/lead_model_xgboost.json" #
 
-lr_model_path = "" # ./artifacts/lead_model_lr.pkl
+lr_model_path = f"./{artifacts_dir}/lead_model_lr.pkl" # 
 params_lr = {
             'solver': ["newton-cg", "lbfgs", "liblinear", "sag", "saga"],
             'penalty':  ["none", "l1", "l2", "elasticnet"],
@@ -71,9 +71,9 @@ params_lr = {
 }
 
 
-column_list_path = "" # ./artifacts/columns_list.json
+column_list_path = f"./{artifacts_dir}/columns_list.json"
  
-model_results_path = "" #./artifacts/model_results.json
+model_results_path = f"./{artifacts_dir}/model_results.json"
 
 # Model Selection
 
