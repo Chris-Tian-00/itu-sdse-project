@@ -3,8 +3,10 @@
 MAX_DATE = "2024-01-31"
 MIN_DATE = "2024-01-01"
 
+#data_path: "Module1/artifacts/raw_data.csv"
+
 artifacts_dir = "Module1/artifacts"
-data_path = f"./{artifacts_dir}/raw_data.csv"
+data_path = f"{artifacts_dir}/raw_data.csv"
 date_limits_path = f"./{artifacts_dir}/date_limits.json"#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
