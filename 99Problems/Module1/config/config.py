@@ -49,7 +49,7 @@ current_date = datetime.datetime.now().strftime("%Y_%B_%d")
 data_version = "00000"
 experiment_name = current_date
 mlruns_dir = "./artifacts/mlruns" 
-ml_runs_trash_dir = ""
+ml_runs_trash_dir = "./artifacts/mlruns_trash"
 
 cat_cols = ["customer_group", "onboarding", "bin_source", "source"]
 
