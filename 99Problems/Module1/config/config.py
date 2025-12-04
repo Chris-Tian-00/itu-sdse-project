@@ -5,7 +5,7 @@ MIN_DATE = "2024-01-01"
 
 #data_path: "Module1/artifacts/raw_data.csv"
 
-artifacts_dir = "Module1/artifacts"
+artifacts_dir = "./artifacts"
 data_path = f"{artifacts_dir}/raw_data.csv"
 date_limits_path = f"./{artifacts_dir}/date_limits.json"#./artifacts/date_limits.json
 
