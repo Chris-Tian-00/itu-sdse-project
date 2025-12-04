@@ -1,4 +1,6 @@
 [core]
-    remote = local_remote
+    remote = gdrive
 ['remote "local_remote"']
     url = /home/kave/MLOPS/itu-sdse-dvc-remote
+['remote "gdrive"']
+    url = gdrive://1p72_pbrtvpv2UZRy6oMTUPJxwAFt6hgu
