@@ -50,6 +50,12 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"pip", "install", "-r", "/app/requirements.txt",
 	})
 
+	// Run tests
+	log.Println("Running unit tests on test_utils.py...")
+	container = container.WithExec([]string{
+	"python", "-m", "unittest", "Module1.src.test_utils",
+})
+
 	//  5. Python scripts to execute in order  
 	steps := []string{
 		"src/01_load.py",
@@ -66,6 +72,8 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		log.Println("Running", script)
 		container = container.WithExec([]string{"python", script})
 	}
+
+
 
 	//  7. Export final model artifacts  
 	_, err := container.
