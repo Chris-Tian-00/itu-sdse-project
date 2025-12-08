@@ -14,13 +14,10 @@ def load_csv_to_df(path):
 def describe_numeric_col(x):
     import pandas as pd
     """
-    Generate descriptive statistics for a numeric pandas Series.
-    
     Parameters:
-        x (pd.Series): Column to describe.
-        
-    Returns:
-        pd.Series: Series with count, missing, mean, min, max.
+        x (pd.Series): Pandas col to describe.
+    Output:
+        y (pd.Series): Pandas series with descriptive stats. 
     """
     return pd.Series(
         [x.count(), x.isnull().sum(), x.mean(), x.min(), x.max()],
@@ -30,14 +27,9 @@ def describe_numeric_col(x):
 
 def impute_missing_values(x, method="mean"):
     """
-    Impute missing values in a pandas Series.
-    
     Parameters:
-        x (pd.Series): Column to impute.
-        method (str): Imputation method ("mean" or "median" for numeric, mode for categorical).
-        
-    Returns:
-        pd.Series: Series with missing values imputed.
+        x (pd.Series): Pandas col to describe.
+        method (str): Values: "mean", "median"
     """
     if x.dtype in ["float64", "int64"]:
         return x.fillna(x.mean()) if method == "mean" else x.fillna(x.median())
