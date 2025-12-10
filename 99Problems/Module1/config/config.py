@@ -9,7 +9,7 @@ artifacts_dir = "./artifacts"
 models_dir = "./models" 
 
 data_path = f"{artifacts_dir}/raw_data.csv" 
-date_limits_path = f"./{models_dir}/date_limits.json"#./artifacts/date_limits.json
+date_limits_path = f"./{artifacts_dir}/date_limits.json"#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
 
@@ -75,9 +75,9 @@ params_lr = {
 }
 
 
-column_list_path = f"./{models_dir}/columns_list.json"
+column_list_path = f"./{artifacts_dir}/columns_list.json"
  
-model_results_path = f"./{models_dir}/model_results.json"
+model_results_path = f"./{artifacts_dir}/model_results.json"
 
 # Model Selection
 

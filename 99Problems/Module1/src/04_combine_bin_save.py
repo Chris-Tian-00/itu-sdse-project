@@ -2,10 +2,16 @@ from sklearn.preprocessing import MinMaxScaler
 import joblib
 import pandas as pd
 import json
+from pathlib import Path
+
+
+
 
 from Module1.config import config as cfg
 from Module1.src.utils import load_csv_to_df, save_to_csv
 
+Path(cfg.models_dir).mkdir(parents=True, exist_ok=True)
+Path(cfg.artifacts_dir).mkdir(parents=True, exist_ok=True)
 
 data = load_csv_to_df(cfg.data_clean_seperate_path)
 cont_vars = load_csv_to_df(cfg.cont_vars_clean_seperate_path)
