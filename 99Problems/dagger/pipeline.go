@@ -27,25 +27,24 @@ func main() {
 
 func runPipeline(ctx context.Context, client *dagger.Client) error {
 
-	//  1. Base Python container with repo mounted  
+	//  1. Base Python container with repo mounted
 	container := client.Container().
 		From("python:3.10-slim").
 		WithMountedDirectory("/app", client.Host().Directory("../")). // mount repo root
 		WithWorkdir("/app/Module1").                                  // scripts live here
-		WithEnvVariable("PYTHONPATH", "/app:/app/Module1")			  // allow "import config"
-                         
+		WithEnvVariable("PYTHONPATH", "/app:/app/Module1")            // allow "import config"
 
-	//  2. Upgrade pip  
+	//  2. Upgrade pip
 	container = container.WithExec([]string{
 		"pip", "install", "--upgrade", "pip",
 	})
 
-	//  3. Install project as editable package  
+	//  3. Install project as editable package
 	container = container.WithExec([]string{
 		"pip", "install", "-e", "/app",
 	})
 
-	//  4. Install dependencies from repo root  
+	//  4. Install dependencies from repo root
 	container = container.WithExec([]string{
 		"pip", "install", "-r", "/app/requirements.txt",
 	})
@@ -53,10 +52,10 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	// Run tests
 	log.Println("Running unit tests on test_utils.py...")
 	container = container.WithExec([]string{
-	"python", "-m", "unittest", "Module1.src.test_utils",
-})
+		"python", "-m", "unittest", "Module1.src.test_utils",
+	})
 
-	//  5. Python scripts to execute in order  
+	//  5. Python scripts to execute in order
 	steps := []string{
 		"src/01_load.py",
 		"src/02_feature_selection.py",
@@ -67,18 +66,25 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"src/07_deploy.py",
 	}
 
-	//  6. Execute each script  
+	//  6. Execute each script
 	for _, script := range steps {
 		log.Println("Running", script)
 		container = container.WithExec([]string{"python", script})
 	}
 
-
-
-	//  7. Export final model artifacts  
+	// 7. Export model artifacts and pipeline artifacts separately
+	// Export deployable models to dagger/models/
 	_, err := container.
+		Directory("/app/Module1/models").
+		Export(ctx, "dagger/models")
+	if err != nil {
+		return err
+	}
+
+	// Export pipeline artifacts to dagger/artifacts/
+	_, err = container.
 		Directory("/app/Module1/artifacts").
-		Export(ctx, "models") // exports locally to 99Problems/models/
+		Export(ctx, "dagger/artifacts")
 	if err != nil {
 		return err
 	}

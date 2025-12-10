@@ -6,8 +6,10 @@ MIN_DATE = "2024-01-01"
 #data_path: "Module1/artifacts/raw_data.csv"
 
 artifacts_dir = "./artifacts"
+models_dir = "./models" 
+
 data_path = f"{artifacts_dir}/raw_data.csv" 
-date_limits_path = f"./{artifacts_dir}/date_limits.json"#./artifacts/date_limits.json
+date_limits_path = f"./{models_dir}/date_limits.json"#./artifacts/date_limits.json
 
 data_load_path = f"./{artifacts_dir}/01_data_load.csv"
 
@@ -26,7 +28,7 @@ cat_vars_clean_seperate_path = f"./{artifacts_dir}/01_cat_vars_clean_seperate.cs
 
 # Combine Bin Save
 
-scaler_path = f"./{artifacts_dir}/scaler.pkl"
+scaler_path = f"./{models_dir}/scaler.pkl"
 
 column_drift_path = f'./{artifacts_dir}/columns_drift.json'
 training_data_path = f'./{artifacts_dir}/training_data.csv'
@@ -63,9 +65,9 @@ params_xgbrf = {
     "objective": ["reg:squarederror", "binary:logistic", "reg:logistic"],
     "eval_metric": ["aucpr", "error"]
 }
-xgboost_model_path = f"./{artifacts_dir}/lead_model_xgboost.json" #
+xgboost_model_path = f"./{models_dir}/lead_model_xgboost.json" #
 
-lr_model_path = f"./{artifacts_dir}/lead_model_lr.pkl" # 
+lr_model_path = f"./{models_dir}/lead_model_lr.pkl" # 
 params_lr = {
             'solver': ["newton-cg", "lbfgs", "liblinear", "sag", "saga"],
             'penalty':  ["none", "l1", "l2", "elasticnet"],
@@ -73,9 +75,9 @@ params_lr = {
 }
 
 
-column_list_path = f"./{artifacts_dir}/columns_list.json"
+column_list_path = f"./{models_dir}/columns_list.json"
  
-model_results_path = f"./{artifacts_dir}/model_results.json"
+model_results_path = f"./{models_dir}/model_results.json"
 
 # Model Selection
 
