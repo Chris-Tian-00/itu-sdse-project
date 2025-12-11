@@ -16,10 +16,46 @@ Exam_Project
 | **Matei Pop**       | mapop@itu.dk |
 
 
+## Original Provided Materials (other/ Directory)
 
+To separate the original course materials from our refactored MLOps pipeline, we placed everything from the initial forked repository into the other/ directory. This folder contains the dataset, the instructor’s main.ipynb notebook, and supporting scripts that formed the starting point of the project.
+
+From these materials, we extracted the relevant logic, cleaned it, and restructured it into modular pipeline components inside 99Problems/Module1/src/. This makes our contribution clear: transforming the original notebook-based workflow into a maintainable, production-style MLOps pipeline using Cookiecutter, DVC, and Dagger.
 
 ## Project Organization
 
+```
+other/                                      <- Original materials from the course repository
+│
+├── docs/                                   <- Provided diagrams and architecture references
+│   ├── diagrams.excalidraw
+│   └── project-architecture.png
+│
+├── notebooks/                              <- Instructor's initial notebook-based pipeline
+│   │
+│   ├── .dvc/                               <- DVC metadata from the original project
+│   │   ├── .gitignore
+│   │   └── config
+│   │
+│   ├── artifacts/                          <- Example artifacts created by main.ipynb
+│   │   ├── .gitignore
+│   │   ├── X_test.csv
+│   │   ├── lead_model_lr.pkl
+│   │   ├── raw_data.csv.dvc
+│   │   └── y_test.csv
+│   │
+│   ├── .dvcignore
+│   ├── .gitignore
+│   ├── main.ipynb                          <- Instructor’s original unstructured notebook
+│   ├── model_inference.py                  <- Example inference script
+│   └── requirements.txt                    <- Original environment requirements
+│
+├── workflows/                              <- Sample CI workflow from instructor
+│   └── test_action.yml
+│
+├── README.md                               <- README from the original repository
+└── action.yml                              <- Additional GitHub Action example
+```
 ```
 99Problems/
 │
