@@ -1,5 +1,39 @@
-- name: Upload Model Artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: model
-    path: 99Problems/dagger/models/lead_model_lr.pkl
+name: Dagger Pipeline CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install -r 99Problems/requirements.txt
+
+      - name: Run Dagger pipeline
+        run: |
+          cd 99Problems/dagger
+          go run pipeline.go
+
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: model
+          path: 99Problems/dagger/models/lead_model_lr.pkl
+
+      - name: Run Model Inference Test Action
+        uses: lasselundstenjensen/itu-sdse-project-model-validator@main
