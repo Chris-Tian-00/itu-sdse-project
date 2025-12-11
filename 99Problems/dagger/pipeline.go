@@ -49,6 +49,19 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"pip", "install", "-r", "/app/requirements.txt",
 	})
 
+	// NEW 
+	// 4b. Install DVC
+	container = container.WithExec([]string{
+    "pip", "install", "dvc",
+	})
+
+	// 4c. Pull raw_data.csv from DVC
+	container = container.WithExec([]string{
+    "dvc", "pull", "Module1/artifacts/raw_data.csv.dvc",
+	})
+
+
+
 	// Run tests
 	//log.Println("Running unit tests on test_utils.py...")
 	//container = container.WithExec([]string{
