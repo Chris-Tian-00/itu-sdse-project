@@ -55,10 +55,11 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
     "pip", "install", "dvc",
 	})
 
-	// 4c. Pull raw_data.csv from DVC
+	// 4c. Pull raw_data.csv from DVC from repo root
 	container = container.WithExec([]string{
-    "dvc", "pull", "Module1/artifacts/raw_data.csv.dvc",
+    "sh", "-c", "cd /app && dvc pull Module1/artifacts/raw_data.csv.dvc",
 	})
+
 
 
 
