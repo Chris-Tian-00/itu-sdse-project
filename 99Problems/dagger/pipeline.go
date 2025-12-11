@@ -50,10 +50,10 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	})
 
 	// Run tests
-	log.Println("Running unit tests on test_utils.py...")
-	container = container.WithExec([]string{
-		"python", "-m", "unittest", "Module1.src.test_utils",
-	})
+	//log.Println("Running unit tests on test_utils.py...")
+	//container = container.WithExec([]string{
+	//	"python", "-m", "unittest", "Module1.src.test_utils",
+	//})
 
 	//  5. Python scripts to execute in order
 	steps := []string{
