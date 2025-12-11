@@ -1,6 +1,7 @@
 name: Dagger Pipeline CI
 
 on:
+  workflow_dispatch:  # allows manual runs
   push:
     branches:
       - main
