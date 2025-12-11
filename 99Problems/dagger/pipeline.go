@@ -57,8 +57,9 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 
 	// 4c. Pull raw_data.csv from DVC from repo root
 	container = container.WithExec([]string{
-    "sh", "-c", "cd Module1 && dvc pull artifacts/raw_data.csv.dvc",
-})
+    "dvc", "pull", "artifacts/raw_data.csv.dvc",
+	})
+
 
 
 
