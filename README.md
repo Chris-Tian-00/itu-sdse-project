@@ -6,6 +6,18 @@
 
 Exam_Project
 
+## 👥 Contributors
+
+| Name               | Email        |
+|--------------------|--------------|
+| **Christian Ainis** | chai@itu.dk  |
+| **Lorand Ladnai**   | lorl@itu.dk  |
+| **Wiktor Pedrycz**  | wipe@itu.dk  |
+| **Matei Pop**       | mapop@itu.dk |
+
+
+
+
 ## Project Organization
 
 ```
