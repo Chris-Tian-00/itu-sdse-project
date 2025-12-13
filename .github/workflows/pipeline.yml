@@ -3,7 +3,7 @@ name: Dagger Pipeline CI
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main] #to be able to trigger by any pushes on branch or main
   pull_request:
     branches: [main]
 
