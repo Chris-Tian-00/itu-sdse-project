@@ -30,26 +30,26 @@ jobs:
           go run pipeline.go
           cd ../..
 
-      # 1️⃣ Upload model produced by Dagger (FIXED PATH)
+      # 1️. Upload model produced by Dagger (FIXED PATH)
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
         with:
           name: model
           path: models/lead_model_lr.pkl
 
-      # 2️⃣ Download artifact directly into model/
+      # 2️. Download artifact directly into model/
       - name: Download Model Artifact
         uses: actions/download-artifact@v4
         with:
           name: model
           path: model
 
-      # 3️⃣ Rename to model.pkl (validator requirement)
+      # 3️. Rename to model.pkl (validator requirement)
       - name: Prepare model for inference test
         run: |
           mv model/lead_model_lr.pkl model/model.pkl
           ls -lh model
 
-      # 4️⃣ Run validator
+      # 4️. Run validator
       - name: Run Model Inference Test Action
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
