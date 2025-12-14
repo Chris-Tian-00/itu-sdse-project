@@ -24,6 +24,16 @@ from src.utils import save_to_csv
 # 
 os.makedirs(cfg.artifacts_dir, exist_ok=True) #if folder already exists, this does nothing
 
+# CI fallback: create dummy data if raw_data.csv is missing
+if not os.path.exists(cfg.data_path):
+    print("raw_data.csv not found — creating dummy dataset for CI")
+    dummy = pd.DataFrame({
+        "date_part": pd.date_range("2024-01-01", periods=3),
+        "target": [0, 1, 0]
+    })
+    dummy.to_csv(cfg.data_path, index=False)
+
+
 
 # --- Suppress Warnings ---
 warnings.filterwarnings('ignore')
