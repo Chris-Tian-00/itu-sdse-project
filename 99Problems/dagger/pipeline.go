@@ -109,15 +109,15 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 
 	// 7. Export full models directory (for inspection/debugging)
 	_, err := container.
-		Directory("/app/models").
+		Directory("/app/dagger/models").
 		Export(ctx, "models")
 	if err != nil {
 		return err
 	}
 
-	// 8. Export pipeline artifacts
+	// 8. Export pipeline artifacts (if they exist)
 	_, err = container.
-		Directory("/app/artifacts").
+		Directory("/app/Module1/artifacts").
 		Export(ctx, "artifacts")
 	if err != nil {
 		return err
@@ -127,7 +127,7 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	_, err = container.
 		WithExec([]string{
 			"bash", "-c",
-			"mkdir -p /out/model && cp /app/models/lead_model_lr.pkl /out/model/model.pkl",
+			"mkdir -p /out/model && cp /app/dagger/models/lead_model_lr.pkl /out/model/model.pkl",
 		}).
 		Directory("/out/model").
 		Export(ctx, "model")
