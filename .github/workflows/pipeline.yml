@@ -30,16 +30,18 @@ jobs:
           go run pipeline.go
           cd ../..
 
+      # ✅ FIXED PATH
       - name: Upload Model Artifact
         uses: actions/upload-artifact@v4
         with:
           name: model
-          path: models/lead_model_lr.pkl
+          path: 99Problems/dagger/models/lead_model_lr.pkl
 
+      # ✅ FIXED PATH
       - name: Prepare model for inference test
         run: |
           mkdir -p model
-          cp models/lead_model_lr.pkl model/model.pkl
+          cp 99Problems/dagger/models/lead_model_lr.pkl model/model.pkl
 
       - name: Run Model Inference Test Action
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
