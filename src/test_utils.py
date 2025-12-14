@@ -5,7 +5,7 @@ import shutil
 import time
 from unittest.mock import patch, MagicMock
 
-from Module1.src.utils import *
+from src.utils import *
 
 
 
