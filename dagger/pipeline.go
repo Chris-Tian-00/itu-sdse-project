@@ -80,14 +80,14 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	// 7. Export model artifacts and pipeline artifacts separately
 	_, err := container.
 		Directory("/app/artifacts").
-		Export(ctx, "artifacts")
+		Export(ctx, "../artifacts")
 	if err != nil {
 		return err
 	}
 
 	_, err = container.
 		Directory("/app/model").
-		Export(ctx, "model")
+		Export(ctx, "../model")
 	if err != nil {
 		return err
 	}
