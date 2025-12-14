@@ -40,6 +40,10 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		WithEnvVariable("PYTHONPATH", "/app:/app/Module1").
 		WithEnvVariable("DVC_NO_GIT", "1")
 
+	container = container.WithExec([]string{
+		"bash", "-c", "set -x",
+	})
+
 	//  2. Upgrade pip
 	container = container.WithExec([]string{
 		"pip", "install", "--upgrade", "pip",
@@ -50,15 +54,27 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"pip", "install", "-e", "/app",
 	})
 
+	container = container.WithExec([]string{
+		"bash", "-c", "echo '--- EDITABLE INSTALL DONE ---'",
+	})
+
 	//  4. Install dependencies from repo root
 	container = container.WithExec([]string{
 		"pip", "install", "-r", "/app/requirements.txt",
+	})
+
+	container = container.WithExec([]string{
+		"bash", "-c", "echo '--- REQUIREMENTS INSTALLED ---'",
 	})
 
 	// NEW
 	// 4b. Install DVC
 	container = container.WithExec([]string{
 		"pip", "install", "dvc",
+	})
+
+	container = container.WithExec([]string{
+		"bash", "-c", "echo '--- DVC INSTALLED ---'",
 	})
 
 	// 4c. Pull raw_data.csv from DVC from repo root
@@ -85,7 +101,9 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 
 	//  6. Execute each script
 	for _, script := range steps {
-		log.Println("Running", script)
+		container = container.WithExec([]string{
+			"bash", "-c", "echo '--- RUNNING " + script + " ---'",
+		})
 		container = container.WithExec([]string{"python", script})
 	}
 
