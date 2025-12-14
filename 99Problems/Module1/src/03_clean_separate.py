@@ -3,21 +3,41 @@ import numpy as np
 import pandas as pd
 from pprint import pprint
 
-from Module1.config import config as cfg
-from Module1.src.utils import load_csv_to_df, save_to_csv, describe_numeric_col, impute_missing_values
+# from Module1.config import config as cfg
+# from Module1.src.utils import load_csv_to_df, save_to_csv, describe_numeric_col, impute_missing_values
+
+from config import config as cfg
+from src.utils import load_csv_to_df, save_to_csv, describe_numeric_col, impute_missing_values
+
+
 
 data = load_csv_to_df(cfg.data_feat_select_path)
 
 
-data["lead_indicator"].replace("", np.nan, inplace=True)
-data["lead_id"].replace("", np.nan, inplace=True)
-data["customer_code"].replace("", np.nan, inplace=True)
+for col in ["lead_indicator", "lead_id", "customer_code"]:
+    if col in data.columns:
+        data[col].replace("", np.nan, inplace=True)
 
-data = data.dropna(axis=0, subset=["lead_indicator"])
-data = data.dropna(axis=0, subset=["lead_id"])
 
-data = data[data.source == "signup"]
-result=data.lead_indicator.value_counts(normalize = True)
+if "lead_indicator" in data.columns:
+    data = data.dropna(axis=0, subset=["lead_indicator"])
+
+if "lead_id" in data.columns:
+    data = data.dropna(axis=0, subset=["lead_id"])
+
+
+if "source" in data.columns:
+    data = data[data["source"] == "signup"]
+
+if "lead_indicator" in data.columns:
+    result = data["lead_indicator"].value_counts(normalize=True)
+
+    print("Target value counter")
+    for val, n in zip(result.index, result):
+        print(val, ": ", n)
+else:
+    print("lead_indicator not found — skipping target distribution")
+
 
 print("Target value counter")
 for val, n in zip(result.index, result):
@@ -25,12 +45,14 @@ for val, n in zip(result.index, result):
 
 #Create and Separate
 vars = [
-    "lead_id", "lead_indicator", "customer_group", "onboarding", "source", "customer_code"
+    "lead_id", "lead_indicator", "customer_group",
+    "onboarding", "source", "customer_code"
 ]
 
 for col in vars:
-    data[col] = data[col].astype("object")
-    print(f"Changed {col} to object type")
+    if col in data.columns:
+        data[col] = data[col].astype("object")
+        print(f"Changed {col} to object type")
 
 cont_vars = data.loc[:, ((data.dtypes=="float64")|(data.dtypes=="int64"))]
 cat_vars = data.loc[:, (data.dtypes=="object")]
@@ -52,7 +74,9 @@ cat_missing_impute.to_csv(cfg.cat_missing_impute_path)
 #Impute Data
 cont_vars = cont_vars.apply(impute_missing_values)
 cont_vars.apply(describe_numeric_col).T
-cat_vars.loc[cat_vars['customer_code'].isna(),'customer_code'] = 'None'
+if "customer_code" in cat_vars.columns:
+    cat_vars.loc[cat_vars["customer_code"].isna(), "customer_code"] = "None"
+
 cat_vars = cat_vars.apply(impute_missing_values)
 cat_vars.apply(lambda x: pd.Series([x.count(), x.isnull().sum()], index = ['Count', 'Missing'])).T
 
