@@ -6,9 +6,14 @@ data = load_csv_to_df(cfg.data_load_path)
 # Not all columns are relevant for modelling
 data = data.drop(
     [
-        "is_active", "marketing_consent", "first_booking", "existing_customer", "last_seen"
+        "is_active",
+        "marketing_consent",
+        "first_booking",
+        "existing_customer",
+        "last_seen",
     ],
-    axis=1
+    axis=1,
+    errors="ignore",
 )
 
 # Removing columns that will be added back after the EDA
