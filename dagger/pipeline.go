@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"log"
-
 	"dagger.io/dagger"
 )
 
@@ -30,48 +29,38 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	//  1. Base Python container with repo mounted
 	container := client.Container().
 		From("python:3.10-slim").
-		WithMountedDirectory("/app", client.Host().Directory("../")). // mount repo root
-		WithWorkdir("/app/Module1").                                  // scripts live here
-		WithEnvVariable("PYTHONPATH", "/app:/app/Module1")            // allow "import config"
+		WithMountedDirectory("/app", client.Host().Directory("..")). // repo root
+		WithWorkdir("/app").
+		WithEnvVariable("PYTHONPATH", "/app")           // allow "import config"
 
 	//  2. Upgrade pip
 	container = container.WithExec([]string{
 		"pip", "install", "--upgrade", "pip",
 	})
 
-	//  3. Install project as editable package
+	//  3. Install dependencies
 	container = container.WithExec([]string{
-		"pip", "install", "-e", "/app",
+		"pip", "install", "-r", "requirements.txt",
 	})
 
-	//  4. Install dependencies from repo root
-	container = container.WithExec([]string{
-		"pip", "install", "-r", "/app/requirements.txt",
-	})
-
-	// NEW 
-	// 4b. Install DVC
+	// 4. Install DVC
 	container = container.WithExec([]string{
     "pip", "install", "dvc",
 	})
 
-	// 4c. Pull raw_data.csv from DVC from repo root
+	// 5. Pull raw data via DVC
 	container = container.WithExec([]string{
     "dvc", "pull", "artifacts/raw_data.csv.dvc",
 	})
 
 
-
-
-
-
 	// Run tests
 	//log.Println("Running unit tests on test_utils.py...")
 	//container = container.WithExec([]string{
-	//	"python", "-m", "unittest", "Module1.src.test_utils",
+	//	"python", "-m", "unittest", "src.test_utils",
 	//})
 
-	//  5. Python scripts to execute in order
+	//  6. Python scripts to execute in order
 	steps := []string{
 		"src/01_load.py",
 		"src/02_feature_selection.py",
@@ -90,15 +79,15 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 
 	// 7. Export model artifacts and pipeline artifacts separately
 	_, err := container.
-		Directory("/app/Module1/models").
-		Export(ctx, "models")
+		Directory("/app/artifacts").
+		Export(ctx, "artifacts")
 	if err != nil {
 		return err
 	}
 
 	_, err = container.
-		Directory("/app/Module1/artifacts").
-		Export(ctx, "artifacts")
+		Directory("/app/model").
+		Export(ctx, "model")
 	if err != nil {
 		return err
 	}
