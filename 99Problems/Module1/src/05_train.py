@@ -51,9 +51,10 @@ else:
 other_vars = data.drop(cfg.cat_cols, axis=1)
 
 #
-for col in cat_vars:
+for col in cat_vars.columns:
     cat_vars[col] = cat_vars[col].astype("category")
     cat_vars = create_dummy_cols(cat_vars, col)
+
 
 data = pd.concat([other_vars, cat_vars], axis=1)
 
