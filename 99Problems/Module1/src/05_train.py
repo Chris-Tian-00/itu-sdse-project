@@ -31,7 +31,12 @@ print(f"Training data length: {len(data)}")
 data.head(5)
 
 #
-data = data.drop(["lead_id", "customer_code", "date_part"], axis=1)
+data = data.drop(
+    ["lead_id", "customer_code", "date_part"],
+    axis=1,
+    errors="ignore"
+)
+
 
 cat_vars = data[cfg.cat_cols]
 other_vars = data.drop(cfg.cat_cols, axis=1)
