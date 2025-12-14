@@ -43,11 +43,19 @@ with open(cfg.column_drift_path,'w+') as f:
 data.to_csv(cfg.training_data_path, index=False)
 
 # binning object columns
-data['bin_source'] = data['source']
-data.loc[~data['source'].isin(cfg.values_list),'bin_source'] = 'Others'
+# binning object columns
+if "source" in data.columns:
+    data["bin_source"] = data["source"]
 
+    data.loc[
+        ~data["source"].isin(cfg.values_list),
+        "bin_source"
+    ] = "Others"
 
-data['bin_source'] = data['source'].map(cfg.mapping)
+    data["bin_source"] = data["source"].map(cfg.mapping)
+else:
+    print("source column not found — skipping binning")
+
 
 #
 #spark.sql(f"drop table if exists train_gold")
