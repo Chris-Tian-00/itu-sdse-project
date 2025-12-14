@@ -37,18 +37,18 @@ jobs:
           name: model
           path: 99Problems/dagger/models/lead_model_lr.pkl
 
-      # 2️⃣ DOWNLOAD THE ARTIFACT (THIS WAS MISSING)
+      # 2️⃣ Download artifact DIRECTLY into model/
       - name: Download Model Artifact
         uses: actions/download-artifact@v4
         with:
           name: model
-          path: downloaded_model
+          path: model
 
-      # 3️⃣ Prepare model for inference validator
+      # 3️⃣ Rename to model.pkl (validator requirement)
       - name: Prepare model for inference test
         run: |
-          mkdir -p model
-          cp downloaded_model/lead_model_lr.pkl model/model.pkl
+          mv model/lead_model_lr.pkl model/model.pkl
+          ls -lh model
 
       # 4️⃣ Run validator
       - name: Run Model Inference Test Action
