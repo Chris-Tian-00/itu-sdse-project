@@ -1,83 +1,85 @@
 import mlflow
 import json
-import pandas as pd 
+import pandas as pd
 from mlflow.tracking import MlflowClient
 
 from Module1.config import config as cfg
 from Module1.src.utils import wait_until_ready
 
-#
-experiment_ids = [mlflow.get_experiment_by_name(cfg.experiment_name).experiment_id]
-print(experiment_ids)
 
-#
-experiment_best = mlflow.search_runs(
-    experiment_ids=experiment_ids,
-    order_by=["metrics.f1_score DESC"],
-    max_results=1
-).iloc[0]
-print(experiment_best)
-
-#
+# --------------------------------------------------
+# Load model results (always exists from step 05)
+# --------------------------------------------------
 with open(cfg.model_results_path, "r") as f:
     model_results = json.load(f)
-results_df = pd.DataFrame({model: val["weighted avg"] for model, val in model_results.items()}).T
 
+results_df = pd.DataFrame.from_dict(model_results, orient="index")
+
+if results_df.empty:
+    print("No model results found — skipping model selection")
+    exit(0)
+
+print("Model results:")
 print(results_df)
 
-#
-best_model = results_df.sort_values("f1-score", ascending=False).iloc[0].name
-print(f"Best model: {best_model}")
+# --------------------------------------------------
+# Pick best model from model_results.json
+# --------------------------------------------------
+if "f1-score" in results_df.columns:
+    best_model = results_df["f1-score"].astype(float).idxmax()
+else:
+    best_model = results_df.index[0]
 
-#
+print(f"Best model from artifacts: {best_model}")
+
+# --------------------------------------------------
+# Try MLflow (optional, CI-safe)
+# --------------------------------------------------
+exp = mlflow.get_experiment_by_name(cfg.experiment_name)
+
+if exp is None:
+    print("No MLflow experiment found — skipping MLflow model selection")
+    exit(0)
+
+runs_df = mlflow.search_runs(
+    experiment_ids=[exp.experiment_id],
+    order_by=["metrics.f1_score DESC"],
+    max_results=1,
+)
+
+if runs_df.empty:
+    print("No MLflow runs found — skipping model registration")
+    exit(0)
+
+experiment_best = runs_df.iloc[0]
+print("Best MLflow run:")
+print(experiment_best)
+
+run_id = experiment_best["run_id"]
+
+# --------------------------------------------------
+# Production model check
+# --------------------------------------------------
 client = MlflowClient()
-prod_model = [model for model in client.search_model_versions(f"name='{cfg.model_name}'") if dict(model)['current_stage']=='Production']
-prod_model_exists = len(prod_model)>0
+prod_models = [
+    m for m in client.search_model_versions(f"name='{cfg.model_name}'")
+    if dict(m)["current_stage"] == "Production"
+]
 
-if prod_model_exists:
-    prod_model_version = dict(prod_model[0])['version']
-    prod_model_run_id = dict(prod_model[0])['run_id']
-    
-    print('Production model name: ', cfg.model_name)
-    print('Production model version:', prod_model_version)
-    print('Production model run id:', prod_model_run_id)
-    
-else:
-    print('No model in production')
+if prod_models:
+    print("Production model exists — skipping auto-promotion in CI")
+    exit(0)
 
-#
-train_model_score = experiment_best["metrics.f1_score"]
-model_details = {}
-model_status = {}
-run_id = None
+# --------------------------------------------------
+# Register model
+# --------------------------------------------------
+print(f"Registering model from run {run_id}")
 
-if prod_model_exists:
-    data, details = mlflow.get_run(prod_model_run_id)
-    prod_model_score = data[1]["metrics.f1_score"]
+model_uri = f"runs:/{run_id}/{cfg.artifact_path}"
+model_details = mlflow.register_model(
+    model_uri=model_uri,
+    name=cfg.model_name,
+)
 
-    model_status["current"] = train_model_score
-    model_status["prod"] = prod_model_score
-
-    if train_model_score>prod_model_score:
-        print("Registering new model")
-        run_id = experiment_best["run_id"]
-else:
-    print("No model in production")
-    run_id = experiment_best["run_id"]
-
-print(f"Registered model: {run_id}")
-
-#
-if run_id is not None:
-    print(f'Best model found: {run_id}')
-
-    model_uri = "runs:/{run_id}/{artifact_path}".format( #????
-        run_id=run_id,
-        artifact_path=cfg.artifact_path
-    )
-    model_details = mlflow.register_model(model_uri=model_uri, name=cfg.model_name)
-    wait_until_ready(model_details.name, model_details.version)
-    model_details = dict(model_details)
-    print(model_details)
-
-
+wait_until_ready(model_details.name, model_details.version)
+print("Model registered:", dict(model_details))
