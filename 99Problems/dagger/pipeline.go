@@ -107,17 +107,30 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		container = container.WithExec([]string{"python", script})
 	}
 
-	// 7. Export model artifacts and pipeline artifacts separately
+	// 7. Export full models directory (for inspection/debugging)
 	_, err := container.
-		Directory("/app/Module1/models").
+		Directory("/app/models").
 		Export(ctx, "models")
 	if err != nil {
 		return err
 	}
 
+	// 8. Export pipeline artifacts
 	_, err = container.
-		Directory("/app/Module1/artifacts").
+		Directory("/app/artifacts").
 		Export(ctx, "artifacts")
+	if err != nil {
+		return err
+	}
+
+	// 9. Export validator-compatible model (REQUIRED)
+	_, err = container.
+		WithExec([]string{
+			"bash", "-c",
+			"mkdir -p /out/model && cp /app/models/lead_model_lr.pkl /out/model/model.pkl",
+		}).
+		Directory("/out/model").
+		Export(ctx, "model")
 	if err != nil {
 		return err
 	}
