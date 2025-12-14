@@ -18,8 +18,14 @@ data = data.drop(
 
 # Removing columns that will be added back after the EDA
 data = data.drop(
-    ["domain", "country", "visited_learn_more_before_booking", "visited_faq"],
-    axis=1
+    [
+        "domain",
+        "country",
+        "visited_learn_more_before_booking",
+        "visited_faq",
+    ],
+    axis=1,
+    errors="ignore",
 )
 
 save_to_csv(data, cfg.data_feat_select_path)
