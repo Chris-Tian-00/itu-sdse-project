@@ -35,9 +35,10 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 			client.Host().Directory("..", dagger.HostDirectoryOpts{
 				Include: []string{".git", "**"},
 			}),
-		).                                                 // changed line
-		WithWorkdir("/app/Module1").                       // scripts live here
-		WithEnvVariable("PYTHONPATH", "/app:/app/Module1") // allow "import config"
+		).
+		WithWorkdir("/app/Module1").
+		WithEnvVariable("PYTHONPATH", "/app:/app/Module1").
+		WithEnvVariable("DVC_NO_GIT", "1")
 
 	//  2. Upgrade pip
 	container = container.WithExec([]string{
