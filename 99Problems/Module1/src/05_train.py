@@ -48,7 +48,6 @@ else:
     cat_vars = data[existing_cat_cols]
     other_vars = data.drop(existing_cat_cols, axis=1)
 
-other_vars = data.drop(cfg.cat_cols, axis=1)
 
 #
 for col in cat_vars.columns:
