@@ -78,9 +78,9 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	})
 
 	// 4c. Pull raw_data.csv from DVC from repo root
-	container = container.WithExec([]string{
-		"dvc", "pull", "artifacts/raw_data.csv.dvc",
-	})
+	//container = container.WithExec([]string{
+	//	"dvc", "pull", "artifacts/raw_data.csv.dvc",
+	//})
 
 	// Run tests
 	//log.Println("Running unit tests on test_utils.py...")
