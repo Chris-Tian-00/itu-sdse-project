@@ -39,10 +39,6 @@ else:
     print("lead_indicator not found — skipping target distribution")
 
 
-print("Target value counter")
-for val, n in zip(result.index, result):
-    print(val, ": ", n)
-
 #Create and Separate
 vars = [
     "lead_id", "lead_indicator", "customer_group",
