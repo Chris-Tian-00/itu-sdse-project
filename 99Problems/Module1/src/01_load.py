@@ -6,8 +6,8 @@ import datetime
 import json
 from pprint import pprint
 
-from Module1.config import config as cfg
-from Module1.src.utils import save_to_csv
+from config import config as cfg
+from src.utils import save_to_csv
 
 # dbutils.widgets.text("Training data max date", "2024-01-31")
 # dbutils.widgets.text("Training data min date", "2024-01-01")
