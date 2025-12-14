@@ -1,5 +1,5 @@
-from Module1.config import config as cfg
-from Module1.src.utils import load_csv_to_df, save_to_csv
+from src.config import config as cfg
+from src.utils import load_csv_to_df, save_to_csv
 
 data = load_csv_to_df(cfg.data_load_path)
 
