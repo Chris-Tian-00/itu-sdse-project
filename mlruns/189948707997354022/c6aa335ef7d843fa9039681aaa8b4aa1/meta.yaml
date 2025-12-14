@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/189948707997354022/c6aa335ef7d843fa9039681aaa8b4aa1/artifacts
+end_time: 1765749793026
+entry_point_name: ''
+experiment_id: '189948707997354022'
+lifecycle_stage: active
+run_id: c6aa335ef7d843fa9039681aaa8b4aa1
+run_name: whimsical-flea-244
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765749792098
+status: 3
+tags: []
+user_id: kikozmej

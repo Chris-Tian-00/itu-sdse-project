@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/189948707997354022/03367370863442baa80f5aba676265ef/artifacts
+end_time: 1765750125315
+entry_point_name: ''
+experiment_id: '189948707997354022'
+lifecycle_stage: active
+run_id: 03367370863442baa80f5aba676265ef
+run_name: nimble-whale-992
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765750124438
+status: 3
+tags: []
+user_id: kikozmej

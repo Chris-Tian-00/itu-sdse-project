@@ -7,8 +7,8 @@ from pathlib import Path
 
 
 
-from Module1.config import config as cfg
-from Module1.src.utils import load_csv_to_df, save_to_csv
+from src.config import config as cfg
+from src.utils import load_csv_to_df, save_to_csv
 
 Path(cfg.models_dir).mkdir(parents=True, exist_ok=True)
 Path(cfg.artifacts_dir).mkdir(parents=True, exist_ok=True)
@@ -23,7 +23,7 @@ scaler = MinMaxScaler()
 scaler.fit(cont_vars)
 
 joblib.dump(value=scaler, filename=cfg.scaler_path)
-print("Saved scaler in artifacts")
+print("Saved scaler in model folder")
 
 cont_vars = pd.DataFrame(scaler.transform(cont_vars), columns=cont_vars.columns)
 # cont_vars

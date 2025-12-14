@@ -73,9 +73,9 @@ params_lr = {
 }
 
 
-column_list_path = f"./{artifacts_dir}/columns_list.json"
+column_list_path = f"./{models_dir}/columns_list.json"
  
-model_results_path = f"./{artifacts_dir}/model_results.json"
+model_results_path = f"./{models_dir}/model_results.json"
 
 # Model Selection
 
