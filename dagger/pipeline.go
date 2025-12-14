@@ -50,7 +50,7 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 
 	// 5. Pull raw data via DVC
 	container = container.WithExec([]string{
-    "dvc", "pull", "artifacts/raw_data.csv.dvc",
+    "dvc", "pull", "data/raw_data.csv.dvc",
 	})
 
 
