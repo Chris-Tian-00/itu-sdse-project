@@ -92,5 +92,20 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		return err
 	}
 
+
+	// 8. Export validator-compatible model for GitHub Actions
+	_, err = container.
+		WithExec([]string{
+			"bash", "-c",
+			"mkdir -p /out/model && cp /app/model/lead_model_lr.pkl /out/model/model.pkl",
+		}).
+		Directory("/out/model").
+		Export(ctx, "../model")   // export to host model folder
+	if err != nil {
+		return err
+	}
+
+
 	return nil
 }
+
