@@ -30,9 +30,14 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	//  1. Base Python container with repo mounted
 	container := client.Container().
 		From("python:3.10-slim").
-		WithMountedDirectory("/app", client.Host().Directory("../")). // mount repo root
-		WithWorkdir("/app/Module1").                                  // scripts live here
-		WithEnvVariable("PYTHONPATH", "/app:/app/Module1")            // allow "import config"
+		WithMountedDirectory(
+			"/app",
+			client.Host().Directory("..", dagger.HostDirectoryOpts{
+				Include: []string{".git", "**"},
+			}),
+		).                                                 // mount repo root
+		WithWorkdir("/app/Module1").                       // scripts live here
+		WithEnvVariable("PYTHONPATH", "/app:/app/Module1") // allow "import config"
 
 	//  2. Upgrade pip
 	container = container.WithExec([]string{
@@ -49,21 +54,16 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"pip", "install", "-r", "/app/requirements.txt",
 	})
 
-	// NEW 
+	// NEW
 	// 4b. Install DVC
 	container = container.WithExec([]string{
-    "pip", "install", "dvc",
+		"pip", "install", "dvc",
 	})
 
 	// 4c. Pull raw_data.csv from DVC from repo root
 	container = container.WithExec([]string{
-    "dvc", "pull", "artifacts/raw_data.csv.dvc",
+		"dvc", "pull", "artifacts/raw_data.csv.dvc",
 	})
-
-
-
-
-
 
 	// Run tests
 	//log.Println("Running unit tests on test_utils.py...")
