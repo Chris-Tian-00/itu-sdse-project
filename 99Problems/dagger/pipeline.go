@@ -35,7 +35,7 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 			client.Host().Directory("..", dagger.HostDirectoryOpts{
 				Include: []string{".git", "**"},
 			}),
-		).                                                 // mount repo root
+		).                                                 // changed line
 		WithWorkdir("/app/Module1").                       // scripts live here
 		WithEnvVariable("PYTHONPATH", "/app:/app/Module1") // allow "import config"
 
