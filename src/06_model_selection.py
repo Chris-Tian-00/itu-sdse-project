@@ -5,6 +5,7 @@ from mlflow.tracking import MlflowClient
 
 from src.config import config as cfg
 from src.utils import wait_until_ready
+import os
 
 
 # mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
@@ -14,6 +15,20 @@ from src.utils import wait_until_ready
 #
 experiment_ids = [mlflow.get_experiment_by_name(cfg.experiment_name).experiment_id]
 print(experiment_ids)
+
+
+'''#####
+print("=== MLFLOW DEBUG INFO ===")
+print("MLFLOW_TRACKING_URI:", mlflow.get_tracking_uri())
+print("PWD:", os.getcwd())
+
+client = MlflowClient()
+store = client._tracking_client.store
+print("Tracking store class:", type(store))
+print("Tracking store URI:", getattr(store, "root_directory", None))
+print("========================")
+#####'''
+
 
 #
 experiment_best = mlflow.search_runs(
