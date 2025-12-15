@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/865e3a1714064e71a7f26e1dcb6435fd/artifacts
+end_time: 1765771601189
+entry_point_name: ''
+experiment_id: '827110798423694157'
+lifecycle_stage: active
+run_id: 865e3a1714064e71a7f26e1dcb6435fd
+run_name: mysterious-mouse-973
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765771600272
+status: 3
+tags: []
+user_id: kikozmej

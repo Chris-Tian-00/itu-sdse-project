@@ -1,0 +1,10 @@
+artifact_location: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/models/m-f7636710187f44a2af4ddf86547d083f/artifacts
+creation_timestamp: 1765771601711
+experiment_id: '827110798423694157'
+last_updated_timestamp: 1765771606269
+model_id: m-f7636710187f44a2af4ddf86547d083f
+model_type: null
+name: model
+source_run_id: 5c1dfb74539e4c5bb60d487b8a682144
+status: 2
+status_message: null

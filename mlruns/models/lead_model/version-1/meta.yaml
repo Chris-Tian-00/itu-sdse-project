@@ -1,0 +1,15 @@
+creation_timestamp: 1765771645267
+current_stage: Staging
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1765771669289
+model_id: m-f7636710187f44a2af4ddf86547d083f
+name: lead_model
+run_id: 5c1dfb74539e4c5bb60d487b8a682144
+run_link: null
+source: models:/m-f7636710187f44a2af4ddf86547d083f
+status: READY
+status_message: null
+storage_location: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/models/m-f7636710187f44a2af4ddf86547d083f/artifacts
+user_id: null
+version: 1

@@ -1,0 +1,19 @@
+artifact_path: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/models/m-f7636710187f44a2af4ddf86547d083f/artifacts
+flavors:
+  python_function:
+    cloudpickle_version: 3.1.2
+    code: null
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.13.7
+    streamable: false
+mlflow_version: 3.6.0
+model_id: m-f7636710187f44a2af4ddf86547d083f
+model_size_bytes: 2173
+model_uuid: m-f7636710187f44a2af4ddf86547d083f
+prompts: null
+run_id: 5c1dfb74539e4c5bb60d487b8a682144
+utc_time_created: '2025-12-15 04:06:41.728082'

@@ -1,0 +1,11 @@
+mean_fit_time,std_fit_time,mean_score_time,std_score_time,param_solver,param_penalty,param_C,params,split0_test_score,split1_test_score,split2_test_score,mean_test_score,std_test_score,rank_test_score
+0.0024816195170084634,0.0016106514157775214,0.0,0.0,saga,elasticnet,0.1,"{'solver': 'saga', 'penalty': 'elasticnet', 'C': 0.1}",,,,,,3
+0.0009330113728841146,0.00017734564073457212,0.0,0.0,sag,elasticnet,0.1,"{'solver': 'sag', 'penalty': 'elasticnet', 'C': 0.1}",,,,,,3
+0.0007808208465576172,3.287814393589911e-05,0.0,0.0,sag,elasticnet,10.0,"{'solver': 'sag', 'penalty': 'elasticnet', 'C': 10}",,,,,,3
+0.005673011144002278,0.0007848475353807631,0.001855929692586263,0.00020787897464795383,sag,l2,0.1,"{'solver': 'sag', 'penalty': 'l2', 'C': 0.1}",0.8137019230769231,0.7884615384615384,0.8064903846153846,0.8028846153846154,0.010615097195105611,2
+0.0009128252665201823,0.00012116689798951953,0.0,0.0,newton-cg,elasticnet,0.01,"{'solver': 'newton-cg', 'penalty': 'elasticnet', 'C': 0.01}",,,,,,3
+0.0007435480753580729,1.1074422520380365e-05,0.0,0.0,sag,elasticnet,1.0,"{'solver': 'sag', 'penalty': 'elasticnet', 'C': 1.0}",,,,,,3
+0.000984509785970052,0.00028539094530090104,0.0,0.0,saga,none,0.1,"{'solver': 'saga', 'penalty': 'none', 'C': 0.1}",,,,,,3
+0.003616491953531901,0.0008828010882059174,0.0016872088114420574,0.00019456166939254042,liblinear,l2,100.0,"{'solver': 'liblinear', 'penalty': 'l2', 'C': 100}",0.8185096153846154,0.8028846153846154,0.8112980769230769,0.8108974358974358,0.006385167247800169,1
+0.0007394949595133463,1.700793469670033e-05,0.0,0.0,lbfgs,none,0.01,"{'solver': 'lbfgs', 'penalty': 'none', 'C': 0.01}",,,,,,3
+0.0007412433624267578,2.239696907262998e-05,0.0,0.0,newton-cg,l1,0.01,"{'solver': 'newton-cg', 'penalty': 'l1', 'C': 0.01}",,,,,,3

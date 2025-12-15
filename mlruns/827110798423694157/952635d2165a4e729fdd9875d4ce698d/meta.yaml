@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/952635d2165a4e729fdd9875d4ce698d/artifacts
+end_time: 1765771601189
+entry_point_name: ''
+experiment_id: '827110798423694157'
+lifecycle_stage: active
+run_id: 952635d2165a4e729fdd9875d4ce698d
+run_name: debonair-foal-528
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765771600272
+status: 3
+tags: []
+user_id: kikozmej

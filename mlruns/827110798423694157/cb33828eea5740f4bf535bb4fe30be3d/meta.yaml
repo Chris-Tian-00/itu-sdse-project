@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/827110798423694157/cb33828eea5740f4bf535bb4fe30be3d/artifacts
+end_time: 1765771601189
+entry_point_name: ''
+experiment_id: '827110798423694157'
+lifecycle_stage: active
+run_id: cb33828eea5740f4bf535bb4fe30be3d
+run_name: bald-wasp-754
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765771600272
+status: 3
+tags: []
+user_id: kikozmej
