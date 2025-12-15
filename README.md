@@ -6,7 +6,7 @@
 
 Exam_Project
 
-## 👥 Contributors
+## Contributors
 
 | Name               | Email        |
 |--------------------|--------------|
@@ -157,9 +157,7 @@ other/                                      <- Original materials from the cours
 
 ## Running the Pipeline via GitHub Actions (CI)
 
-The full ML pipeline (training and validation) is executed using **GitHub Actions**.
-
-The workflow configuration is located at: '.github/workflows/pipeline.yml'.
+The full ML pipeline (training and validation) is executed using **GitHub Actions**. The workflow configuration is located at: `.github/workflows/pipeline.yml`.
 
 
 ### Manually Triggering the Workflow (`workflow_dispatch`)
@@ -187,7 +185,7 @@ After the workflow has completed:
 3. Locate the artifact named **model**
 4. Click the download icon or the artifact name
 
-The downloaded artifact contains 'model.pkl', which represents the best trained model produced by the pipeline.
+The downloaded artifact contains `model.pkl`, which represents the best trained model produced by the pipeline.
 
 
 --------
