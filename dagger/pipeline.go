@@ -43,15 +43,18 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"pip", "install", "-r", "requirements.txt",
 	})
 
-	// 4. Install DVC
-	container = container.WithExec([]string{
-    "pip", "install", "dvc",
-	})
+	// 4. Install DVC and pull raw data
+	container = container.
+    	// Install DVC
+    	WithExec([]string{
+        "pip", "install", "dvc",
+    }).
+    	// Pull raw_data.csv.dvc, fallback to update if pull fails
+    	WithExec([]string{
+        "sh", "-c",
+        "dvc pull || dvc update data/raw_data.csv.dvc",
+    })
 
-	// 5. Pull raw data via DVC
-	container = container.WithExec([]string{
-    "dvc", "pull", "data/raw_data.csv.dvc",
-	})
 
 
 	// Run tests
@@ -60,7 +63,7 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	//	"python", "-m", "unittest", "src.test_utils",
 	//})
 
-	//  6. Python scripts to execute in order
+	//  5. Python scripts to execute in order
 	steps := []string{
 		"src/01_load.py",
 		"src/02_feature_selection.py",
