@@ -22,8 +22,8 @@ os.makedirs(cfg.mlruns_dir, exist_ok=True)
 os.makedirs(cfg.ml_runs_trash_dir, exist_ok=True)
 
 
-mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
-print("MLflow tracking URI:", mlflow.get_tracking_uri())
+# mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
+# print("MLflow tracking URI:", mlflow.get_tracking_uri())
 
 
 mlflow.set_experiment(cfg.experiment_name)
