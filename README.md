@@ -130,9 +130,8 @@ other/                         # Original materials from the course repository
 The full ML pipeline (training and validation) is executed using **GitHub Actions**. The workflow configuration is located at: `.github/workflows/pipeline.yml`.
 
 
-### Manually Triggering the Workflow (`workflow_dispatch`)
-
-To manually run the training and validation pipeline:
+### Triggering the Workflow (`workflow_dispatch`)
+The workflow can be automatically triggered by pushes and pull requests to the `main` branch, as well as manual triggers through GitHub Actions. To manually run the training and validation pipeline:
 
 1. Find the **Actions** tab in the GitHub repository
 2. In the left sidebar, select **Dagger Pipeline CI**
