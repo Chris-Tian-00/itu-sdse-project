@@ -129,8 +129,10 @@ with mlflow.start_run(experiment_id=experiment_id) as run:
     mlflow.log_param("data_version", cfg.data_version)
     
     # store model for model interpretability
-    joblib.dump(value=model, filename=cfg.lr_model_path)
-        
+    #joblib.dump(value=model, filename=cfg.lr_model_path)
+    joblib.dump(value=best_model, filename=cfg.lr_model_path) # save fitted best_model, not original unfitted model
+ 
+
     # Custom python model for predicting probability 
     mlflow.pyfunc.log_model('model', python_model=lr_wrapper(model))
 
