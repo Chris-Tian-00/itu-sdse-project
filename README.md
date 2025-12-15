@@ -58,11 +58,11 @@ other/                                      <- Original materials from the cours
 ```
 ```
 .
-├── .dvc/ # DVC internal metadata and cache
-│ ├── cache/ # Cached versions of data files
-│ ├── config # DVC configuration
-│ └── tmp/ # Temporary DVC runtime files
-├── .dvcignore # Files ignored by DVC
+├── .dvc/                      # DVC internal metadata and cache
+│ ├── cache/                   # Cached versions of data files
+│ ├── config                   # DVC configuration
+│ └── tmp/                     # Temporary DVC runtime files
+├── .dvcignore                 # Files ignored by DVC
 │
 ├── .github/
 │ └── workflows/
