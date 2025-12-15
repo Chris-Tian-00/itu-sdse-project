@@ -16,6 +16,9 @@ from src.config import config as cfg
 from src.utils import create_dummy_cols
 
 
+mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
+print("MLflow tracking URI:", mlflow.get_tracking_uri())
+
 
 os.makedirs(cfg.artifacts_dir, exist_ok=True)
 os.makedirs(cfg.mlruns_dir, exist_ok=True)

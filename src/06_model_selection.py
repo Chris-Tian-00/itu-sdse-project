@@ -6,6 +6,11 @@ from mlflow.tracking import MlflowClient
 from src.config import config as cfg
 from src.utils import wait_until_ready
 
+
+mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
+print("MLflow tracking URI:", mlflow.get_tracking_uri())
+
+
 #
 experiment_ids = [mlflow.get_experiment_by_name(cfg.experiment_name).experiment_id]
 print(experiment_ids)
