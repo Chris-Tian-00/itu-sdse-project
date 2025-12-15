@@ -155,4 +155,39 @@ other/                                      <- Original materials from the cours
 
 ```
 
+## Running the Pipeline via GitHub Actions (CI)
+
+The full ML pipeline (training and validation) is executed using **GitHub Actions**.
+
+The workflow configuration is located at: '.github/workflows/pipeline.yml'.
+
+
+### Manually Triggering the Workflow (`workflow_dispatch`)
+
+To manually run the training and validation pipeline:
+
+1. Find the **Actions** tab in the GitHub repository
+2. In the left sidebar, select **Dagger Pipeline CI**
+3. Click the **Run workflow** button (gray)
+4. Choose the **main** branch from the dropdown menu
+5. Click **Run workflow** (green)
+
+This will start the full pipeline, including both training and validation steps.
+
+---
+
+### Accessing the Model Artifact
+
+The trained model is uploaded as a GitHub Actions artifact named **`model`**.
+
+After the workflow has completed:
+
+1. Open the completed workflow run from the **Actions** tab
+2. Scroll down to the **Artifacts** section
+3. Locate the artifact named **model**
+4. Click the download icon or the artifact name
+
+The downloaded artifact contains 'model.pkl', which represents the best trained model produced by the pipeline.
+
+
 --------
