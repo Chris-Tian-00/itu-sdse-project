@@ -7,7 +7,7 @@ from unittest.mock import patch, MagicMock
 
 from src.utils import *
 
-
+# We are testing functions from the src/utils.py file
 
 class TestDataUtilities(unittest.TestCase):
     
@@ -149,4 +149,3 @@ class TestDataUtilities(unittest.TestCase):
         self.assertEqual(mock_sleep.call_count, 2)
 
 
-# To run use: python -m unittest discover Module1
