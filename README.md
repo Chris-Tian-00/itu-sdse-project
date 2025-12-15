@@ -16,11 +16,9 @@ Exam_Project
 | **Matei Pop**       | mapop@itu.dk |
 
 
-## Original Provided Materials (other/ Directory)
-
-To separate the original course materials from our refactored MLOps pipeline, we placed everything from the initial forked repository into the other/ directory. This folder contains the dataset, the instructor’s main.ipynb notebook, and supporting scripts that formed the starting point of the project.
-
 ## Project Organization
+
+The project was initially scaffolded using a Cookiecutter Data Science template. While this structure inspired our organization, we later adapted and reorganized the repository to better fit our MLOps pipeline and workflow. As a result, the final structure is a combination of selected Cookiecutter elements and custom directories and files.
 
 
 ```
@@ -88,6 +86,11 @@ To separate the original course materials from our refactored MLOps pipeline, we
 └── README.md                  # Project documentation
 
 ```
+
+## Original Provided Materials (other/ Directory)
+
+To separate the original course materials from our refactored MLOps pipeline, we placed everything from the initial forked repository into the other/ directory. This folder contains the dataset, the instructor’s main.ipynb notebook, and supporting scripts that formed the starting point of the project.
+
 ```
 other/                         # Original materials from the course repository
 │
