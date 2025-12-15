@@ -7,8 +7,8 @@ from src.config import config as cfg
 from src.utils import wait_until_ready
 
 
-mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
-print("MLflow tracking URI:", mlflow.get_tracking_uri())
+#mlflow.set_tracking_uri(f"file:{cfg.mlruns_dir}") # track in /artifacts
+#print("MLflow tracking URI:", mlflow.get_tracking_uri())
 
 
 #
