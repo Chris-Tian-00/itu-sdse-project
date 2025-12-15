@@ -55,15 +55,12 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
         "dvc pull || dvc update data/raw_data.csv.dvc",
     })
 
+	// 5. Run unit tests first
+    container = container.WithExec([]string{
+        "python", "-m", "unittest", "tests.test_utils",
+    })
 
-
-	// Run tests
-	//log.Println("Running unit tests on test_utils.py...")
-	//container = container.WithExec([]string{
-	//	"python", "-m", "unittest", "src.test_utils",
-	//})
-
-	//  5. Python scripts to execute in order
+	//  6. Python scripts to execute in order
 	steps := []string{
 		"src/01_load.py",
 		"src/02_feature_selection.py",
@@ -74,13 +71,13 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 		"src/07_deploy.py",
 	}
 
-	//  6. Execute each script
+	//  7. Execute each script
 	for _, script := range steps {
 		log.Println("Running", script)
 		container = container.WithExec([]string{"python", script})
 	}
 
-	// 7. Export model artifacts and pipeline artifacts separately
+	// 8. Export model artifacts and pipeline artifacts separately
 	_, err := container.
 		Directory("/app/artifacts").
 		Export(ctx, "../artifacts")
@@ -96,7 +93,7 @@ func runPipeline(ctx context.Context, client *dagger.Client) error {
 	}
 
 
-	// 8. Export validator-compatible model for GitHub Actions
+	// 9. Export validator-compatible model for GitHub Actions
 	_, err = container.
 		WithExec([]string{
 			"bash", "-c",
