@@ -158,3 +158,51 @@ The downloaded artifact contains `model.pkl`, which represents the best trained 
 
 
 --------
+
+## Running the Pipeline locally
+
+### Prerequisites
+
+Make sure the following tools are installed:
+- Python 3.10
+- Go 1.25.0
+- Docker Desktop
+- Dagger
+- DVC
+
+### Cloning the repository
+
+```bash
+git clone https://github.com/Chris-Tian-00/itu-sdse-project.git
+cd itu-sdse-project
+```
+### Setting up the virtual enviroment
+
+Linux/Mac
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Windows
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+Installing requirements
+```bash
+pip install -r requirements.txt
+```
+### Running the code
+
+1. Open Docker Desktop and make sure its running
+
+2. Run the following code
+
+```bash
+cd dagger
+go run pipeline.go
+```
+
+
