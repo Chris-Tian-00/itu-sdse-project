@@ -57,101 +57,68 @@ other/                                      <- Original materials from the cours
 └── action.yml                              <- Additional GitHub Action example
 ```
 ```
-99Problems/
+.
+├── .dvc/ # DVC internal metadata and cache
+│ ├── cache/ # Cached versions of data files
+│ ├── config # DVC configuration
+│ └── tmp/ # Temporary DVC runtime files
+├── .dvcignore # Files ignored by DVC
 │
-├── Module1/                           <- Core Python ML pipeline module
-│   │
-│   ├── .dvc/                          <- DVC internal metadata
-│   │   ├── .gitignore
-│   │   └── config
-│   │
-│   ├── .dvcignore                     <- Ignore rules for DVC
-│   │
-│   ├── artifacts/                     <- Raw data tracked by DVC
-│   │   ├── .gitignore
-│   │   ├── .gitkeep
-│   │   └── raw_data.csv.dvc          <- Pointer to raw dataset
-│   │
-│   ├── config/                        <- Config settings for pipeline
-│   │   ├── __init__.py
-│   │   └── config.py                  <- Central configuration variables
-│   │
-│   ├── src/                           <- All ML pipeline steps
-│   │   ├── 01_load.py                 <- Load raw data
-│   │   ├── 02_feature_selection.py    <- Select relevant features
-│   │   ├── 03_clean_separate.py       <- Clean & split variables
-│   │   ├── 04_combine_bin_save.py     <- Combine & bin features
-│   │   ├── 05_train.py                <- Train ML models
-│   │   ├── 06_model_selection.py      <- Choose best model
-│   │   ├── 07_deploy.py               <- Prepare deployment assets
-│   │   ├── __init__.py
-│   │   ├── test_utils.py              <- Tests for utilities
-│   │   └── utils.py                   <- Shared helper functions
-│   │
-│   ├── plots.py                       <- Visualization utilities
-│   └── __init__.py
+├── .github/
+│ └── workflows/
+│ └── pipeline.yml             # GitHub Actions CI pipeline (train + validate)
 │
+├── CC_produced/               # Cookiecutter Data Science scaffold (unused)
+│                              # Kept for reference only
 │
-├── dagger/                             <- Dagger containerized pipeline
-│   │
-│   ├── artifacts/                      <- All processed data artifacts
-│   │   ├── .gitignore
-│   │   ├── .gitkeep
-│   │   ├── 01_cat_vars_clean_seperate.csv   <- Cleaned categorical vars
-│   │   ├── 01_cont_vars_clean_seperate.csv  <- Cleaned continuous vars
-│   │   ├── 01_data_load.csv                 <- Loaded dataset output
-│   │   ├── 02_data_feat_select.csv          <- Feature-selected dataset
-│   │   ├── 03_data_clean_seperate.csv       <- Clean + separated summary
-│   │   ├── cat_missing_impute.csv           <- Missing categorical imputations
-│   │   ├── columns_drift.json               <- Drift detection results
-│   │   ├── columns_list.json                <- List of valid columns
-│   │   ├── date_limits.json                 <- Allowed date boundaries
-│   │   ├── model_results.json               <- Model evaluation summary
-│   │   ├── outlier_summary.csv              <- Outlier analysis report
-│   │   ├── raw_data.csv.dvc                 <- DVC pointer to dataset
-│   │   ├── train_data_gold.csv              <- Final gold training data
-│   │   └── training_data.csv                <- Prepared training dataset
-│   │
-│   ├── models/                         <- All trained ML models
-│   │   ├── lead_model_lr.pkl           <- Logistic Regression model
-│   │   ├── lead_model_xgboost.json     <- XGBoost trained model
-│   │   └── scaler.pkl                  <- Feature scaler for inference
-│   │
-│   ├── go.mod                          <- Go module file
-│   ├── go.sum                          <- Go dependencies checksums
-│   └── pipeline.go                     <- Dagger pipeline definition
+├── artifacts/                 # Intermediate artifacts produced by pipeline steps
+│ ├── 01_data_load.csv
+│ ├── 02_data_feat_select.csv
+│ ├── 03_data_clean_seperate.csv
+│ ├── train_data_gold.csv
+│ ├── outlier_summary.csv
+│ ├── columns_drift.json
+│ └── date_limits.json
 │
+├── dagger/
+│ ├── go.mod                   # Go module definition for Dagger
+│ ├── go.sum                   # Go dependency lockfile
+│ └── pipeline.go              # Dagger pipeline definition (end-to-end ML workflow)
 │
-├── docs/                                <- Documentation system (MkDocs)
-│   ├── mkdocs.yml                       <- MkDocs configuration
-│   ├── README.md                        <- Docs index for repo
-│   ├── .gitkeep
-│   │
-│   └── docs/                            <- Site documentation pages
-│       ├── getting-started.md           <- Quickstart guide
-│       └── index.md                     <- Documentation homepage
-│    
+├── data/
+│ ├── raw_data.csv.dvc # DVC-tracked raw dataset
+│ └── raw_data.csv             # Materialized data (git ignored)
 │
-├── notebooks/                           <- Jupyter notebook workspace
-│   └── .gitkeep
+├── model/                     # Trained models and model-related artifacts
+│ ├── lead_model_lr.pkl        # Logistic regression model
+│ ├── lead_model_xgboost.json  # XGBoost model
+│ ├── model.pkl                # Final exported model (used by validator)
+│ ├── scaler.pkl               # Feature scaler
+│ ├── columns_list.json        # Feature list used during training
+│ └── model_results.json       # Training and evaluation metrics
 │
-├── references/                          <- Manuals, resources
-│   └── .gitkeep
+├── other/                     # Original provided materials (course content)
+│                              # Includes original notebooks and scripts
 │
-├── reports/                             <- Generated reports
-│   ├── figures/                         <- Exported figures
-│   │   └── .gitkeep
-│   └── .gitkeep
+├── src/                       # Source code for the ML pipeline
+│ ├── 01_load.py               # Load and initial preprocessing of raw data
+│ ├── 02_feature_selection.py  # Feature selection logic
+│ ├── 03_clean_separate.py     # Data cleaning and separation
+│ ├── 04_combine_bin_save.py   # Feature engineering and binning
+│ ├── 05_train.py              # Model training
+│ ├── 06_model_selection.py    # Model comparison and selection
+│ ├── 07_deploy.py             # Model export and deployment preparation
+│ ├── utils.py                 # Shared utility functions
+│ └── config/
+│ └── config.py                # Centralized configuration values
 │
-├── tests/                               <- Test suite
-│   ├── test_data.py                     
+├── tests/
+│ └── test_utils.py            # Unit tests for utility functions
 │
-│
-├── .gitignore
-├── Makefile                             <- Automation commands
-├── README.md                            <- Project overview
-├── pyproject.toml                       <- Build & formatting config
-└── requirements.txt                     <- Python dependencies
+├── requirements.txt           # Python dependencies
+├── pyproject.toml             # Python project metadata
+├── Makefile                   # Convenience commands (optional)
+└── README.md                  # Project documentation
 
 ```
 
