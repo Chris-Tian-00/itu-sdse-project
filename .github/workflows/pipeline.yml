@@ -1,40 +1,55 @@
 name: Dagger Pipeline CI
 
 on:
-  workflow_dispatch:  # allows manual runs
+  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   run-pipeline:
     runs-on: ubuntu-22.04
+
     steps:
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: |
-          pip install -r 99Problems/requirements.txt
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install dagger dvc
 
+      # 4. Run Dagger pipeline
       - name: Run Dagger pipeline
         run: |
-          cd 99Problems/dagger
+          cd dagger
           go run pipeline.go
+          cd ..
 
+      # 5. Upload model produced by Dagger (already renamed as model.pkl)
       - name: Upload Model Artifact
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4
         with:
           name: model
-          path: 99Problems/dagger/models/lead_model_lr.pkl
+          path: model/model.pkl
 
+      # 6. Download artifact directly into model/ (validator expects it here)
+      - name: Download Model Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: model
+          path: model
+
+      # 7. Run validator (inference test)
       - name: Run Model Inference Test Action
         uses: lasselundstenjensen/itu-sdse-project-model-validator@main
