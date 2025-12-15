@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/879054752022073326/8a44e837ec364017b100d0b59ccba14f/artifacts
+end_time: 1765765066375
+entry_point_name: ''
+experiment_id: '879054752022073326'
+lifecycle_stage: active
+run_id: 8a44e837ec364017b100d0b59ccba14f
+run_name: funny-frog-373
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765765065473
+status: 3
+tags: []
+user_id: kikozmej

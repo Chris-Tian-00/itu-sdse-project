@@ -1,0 +1,14 @@
+artifact_uri: file:///home/kikozmej/DSproduction/project/itu-sdse-project/mlruns/879054752022073326/57e7634eab5e4eb9b2e7db960f1dd2e0/artifacts
+end_time: 1765765066375
+entry_point_name: ''
+experiment_id: '879054752022073326'
+lifecycle_stage: active
+run_id: 57e7634eab5e4eb9b2e7db960f1dd2e0
+run_name: gregarious-toad-532
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765765065473
+status: 3
+tags: []
+user_id: kikozmej
